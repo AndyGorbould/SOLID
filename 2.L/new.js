@@ -4,7 +4,7 @@ class VariableDiscount {
         this._value = value;
     }
     apply(price) {
-        return (price - (price * this._value / 100));
+        return (price - (price * this._value / 100)); // %%%
     }
     showCalculation(price) {
         return price + " € -  " + this._value + "%";
@@ -31,7 +31,7 @@ class NoDiscount {
         return Math.max(none, price - this._value);
     }
     showCalculation(price) {
-        return "No discount";
+        return "Full price ya cheapskate!";
     }
 }
 class Product {
@@ -75,6 +75,7 @@ cart.addProduct(new Product('Chair', 25, new FixedDiscount(10)));
 //cart.addProduct(new Product('Chair', 25, new Discount("fixed", -10)));
 cart.addProduct(new Product('Table', 50, new VariableDiscount(25)));
 cart.addProduct(new Product('Bed', 100, new NoDiscount()));
+// cast
 const tableElement = document.querySelector('#cart tbody');
 cart.products.forEach((product) => {
     let tr = document.createElement('tr');

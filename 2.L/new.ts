@@ -1,4 +1,9 @@
-class VariableDiscount {
+interface DiscountType {
+    apply(price: number) : number;
+    showCalculation(price: number) : string;
+}
+
+class VariableDiscount implements DiscountType {
     private _value: number;
 
     constructor(value : number = 0) {
@@ -6,7 +11,7 @@ class VariableDiscount {
     }
 
     apply(price : number) : number {
-        return (price - (price * this._value / 100));
+        return (price - (price * this._value / 100)); // %%%
     }
     
     showCalculation(price : number) : string {
@@ -14,8 +19,7 @@ class VariableDiscount {
     }
 }
 
-
-class FixedDiscount {
+class FixedDiscount implements DiscountType {
     private _value: number;
 
     constructor(value : number = 0) {
@@ -32,7 +36,7 @@ class FixedDiscount {
     
 }
 
-class NoDiscount {
+class NoDiscount implements DiscountType {
     private _value: number;
 
     constructor(value : number = 0) {
@@ -46,17 +50,16 @@ class NoDiscount {
     }
 
     showCalculation(price : number) : string {
-        return "No discount";
+        return "Full price ya cheapskate!";
     }
 }
-
 
 class Product {
     private _name : string;
     private _price : number;
-    private _discount : Discount;
+    private _discount : DiscountType;
 
-    constructor(name: string, price: number, discount: Discount) {
+    constructor(name: string, price: number, discount: DiscountType) {
         this._name = name;
         this._price = price;
         this._discount = discount;
@@ -66,7 +69,7 @@ class Product {
         return this._name;
     }
 
-    get discount(): Discount {
+    get discount(): DiscountType {
         return this._discount;
     }
 
@@ -104,7 +107,8 @@ cart.addProduct(new Product('Chair', 25, new FixedDiscount(10)));
 cart.addProduct(new Product('Table', 50, new VariableDiscount(25)));
 cart.addProduct(new Product('Bed', 100, new NoDiscount()));
 
-const tableElement = document.querySelector('#cart tbody');
+// cast
+const tableElement = <HTMLTableElement>document.querySelector('#cart tbody');
 cart.products.forEach((product) => {
     let tr = document.createElement('tr');
 
