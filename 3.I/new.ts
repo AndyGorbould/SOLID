@@ -1,6 +1,6 @@
 interface PasswordAuth {            // DietInterface || InterfaceLite
     checkPassword(password: string) : boolean;
-    resetPassword(prompt : string) : string;
+    resetPassword() : string;
 }
 
 interface GoogleAuth {
@@ -15,16 +15,16 @@ interface FBAuth {
 
 class User implements PasswordAuth, GoogleAuth, FBAuth {
     private _password : string = 'user';
-    private _googleToken : string = 'secret_token_google';
-    private _facebookToken : string = 'secret_token_fb';
+    private _googleToken : string;
+    private _facebookToken : string;
 
     checkPassword(password: string) : boolean {
         return (password === this._password);
     }
 
-    resetPassword() : string {
-        this._password = prompt('What is your new password?');
-        return this._password;
+    resetPassword() {
+        this._password = prompt('What is your new password?')
+        ;
     }
 
     checkGoogleLogin(token: string) {
@@ -68,8 +68,8 @@ const typeFacebookElement = <HTMLInputElement>document.querySelector('#typeFaceb
 const loginAsAdminElement = <HTMLInputElement>document.querySelector('#loginAsAdmin');
 const resetPasswordElement = <HTMLAnchorElement>document.querySelector('#resetPassword');
 
-let guest = new User; /// this needs fixed for future errors
-let admin = new Admin;
+let guest = new User(); /// this needs fixed for future errors
+let admin = new Admin();
 
 document.querySelector('#login-form').addEventListener('submit', (event) => {
     event.preventDefault();
@@ -77,8 +77,8 @@ document.querySelector('#login-form').addEventListener('submit', (event) => {
     let user = loginAsAdminElement.checked ? admin : guest;    /// remember me
 
     if(!loginAsAdminElement.checked) {              // errors incoming (needed set to User)
-        User.setGoogleToken('secret_token_google');
-        User.setFacebookToken('secret_token_fb');
+        user.setGoogleToken('secret_token_google');
+        user.setFacebookToken('secret_token_fb');
     }
 
     let auth = false;
@@ -90,7 +90,7 @@ document.querySelector('#login-form').addEventListener('submit', (event) => {
             auth = user.checkGoogleLogin('secret_token_google');
             break;
         case typeFacebookElement.checked:
-            debugger;
+            // debugger;     // GO AWAY!
             auth = user.getFacebookLogin('secret_token_fb');
             break;
     }
