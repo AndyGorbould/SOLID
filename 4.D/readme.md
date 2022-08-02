@@ -10,3 +10,8 @@ The Restaurant class depends on usage of its Oven object. What if we wanted to m
 
 
 
+# my notes
+
+A 'god class' shouldn't be dependant on properties or methods from another class or interface & should work without needing them.
+A restaurant should have the ability to perfom on it's own without eg. 'gas oven, electric oven, George Forman grill'.
+These other classes should be able to function correctly as part of other classes eg. 'home, campervan, kitchen showroom'.

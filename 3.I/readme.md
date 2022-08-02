@@ -41,3 +41,8 @@ As an extra difficulty, there is a feature request for a google bot to be able t
 
 ### Exercise: Step 2 (Optional)
 You might notice that both the Google and Facebook code is almost identical, could you maybe refactor this code to small, separate dependencies?
+
+
+
+# my notes
+This will force forward thinking metholody onto coders, so they always ask themselves the necessary 'what if?' from the outset.
